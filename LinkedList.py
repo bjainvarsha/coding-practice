@@ -13,19 +13,17 @@ class Single_LL:
 			print("Linked List Empty")
 			return
 		temp = self.head
-		LL_string = "\n"		
+		LL_string = "\n|"		
 		while temp:
-			LL_string += str(temp.data) + " --> "
+			LL_string += str(temp.data) + "|-->|"
 			temp = temp.next
 		LL_string = LL_string[:-4] + "\n"
 		if self.head:
 			LL_string += "Head = " + str(self.head.data) + "\n"
 		if self.tail:
 			LL_string += "Tail = " + str(self.tail.data) + "\n"
+		LL_string += "Length of LL = " + str(self.length())
 		print(LL_string)
-		count = self.length()
-		print("Length of LL = " + str(count))
-
 
 	def insert_end(self, data):
 		if self.tail:
@@ -177,6 +175,26 @@ class Single_LL:
 		else:
 			return self.head
 
+	def removeFirstOccurrenceByValue(self, value):
+		if self.head and self.head.next:
+			if self.head.data == value:
+				self.head = self.head.next
+				return
+			temp = self.head
+			while temp.next:
+				if temp.next.data == value:
+					if temp.next == self.tail:
+						self.tail = temp
+					temp.next = temp.next.next
+					break
+				temp = temp.next
+		elif self.head:
+			if self.head.data == value:
+				self.head = self.tail = None
+		else:
+			print("Linked List Empty")
+			return 
+
 def detect_loop(linked_list):
 	if not linked_list.isEmpty():
 		slow = linked_list.get_head()
@@ -188,24 +206,19 @@ def detect_loop(linked_list):
 			slow = slow.next
 			fast = fast.next.next
 		return False
-		
-
-
-
-
-
 
 if __name__ == '__main__':
 	LL = Single_LL()	
-	LL.insert_list_begin([10])
+	LL.insert_list_begin([10,"sda",13,12])
 	LL.print_LL()
-	# print(LL.get_middle_node())
-	reverse_LL = Single_LL()
-	reverse_LL = LL.reverse_LL()
-	reverse_LL.print_LL()
+	LL.removeFirstOccurrenceByValue("sda")
 	LL.print_LL()
-	LL.tail.next = LL.head
-	print(detect_loop(LL))
-
-
-
+	LL.removeFirstOccurrenceByValue(10)
+	LL.print_LL()
+	# # print(LL.get_middle_node())
+	# reverse_LL = Single_LL()
+	# reverse_LL = LL.reverse_LL()
+	# reverse_LL.print_LL()
+	# LL.print_LL()
+	# LL.tail.next = LL.head
+	# print(detect_loop(LL))
